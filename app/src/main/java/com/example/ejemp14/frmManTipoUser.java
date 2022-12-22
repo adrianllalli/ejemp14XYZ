@@ -2,29 +2,21 @@ package com.example.ejemp14;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
-
-
-public class MainActivity extends AppCompatActivity {
-private EditText txtUsu,txtPass;
+public class frmManTipoUser extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        txtUsu=findViewById(R.id.txtUsuario);
-        txtPass=findViewById(R.id.txtPassword);
+        setContentView(R.layout.activity_frm_man_tipo_user);
     }
 
     public Connection conexionBD(){
@@ -41,23 +33,13 @@ private EditText txtUsu,txtPass;
         return cnn;
     }
 
-    public void EnvioPrueba(View view){
-        Intent x=new Intent(this,frmManTipoUser.class);
-        startActivity(x);
-    }
-
-    public void Consulta(View view){
+    public void Insertar(View view){
         try {
             Statement st=conexionBD().createStatement();
-            ResultSet rs=st.executeQuery("SELECT * FROM usuarios where codigo='"+txtUsu.getText().toString()+"'");
-            if(rs.next()){
-
-
-
-                Toast.makeText(getApplicationContext(),"Conexion establecida",Toast.LENGTH_SHORT).show();
-            }
+            st.executeUpdate("insert into tipo_usuarios value('TX01','PRUEBAX1')");
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
+
 }
